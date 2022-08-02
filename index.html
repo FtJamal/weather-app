@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+        <div class="container">
+            <form onsubmit="getWeatherData(); return false;">
+                <input type="text" required id="cityName" placeholder="Enter your city name">
+                <button type="submit">Search</button>
+
+            </form>
+
+
+            <div id="one" class="item">
+                <img id="icon" alt="">
+                <h3 id="temp"></h3>
+            </div>
+            <div id="two" class="item">
+                <h2 id="city"></h2>
+                <h3 id="condition"></h3>
+            </div>
+            <div id="three" class="item">
+                <h3 id="feelc"></h3>
+                <h3 id="humidity"></h3>
+            </div>
+            <div id="four" class="item">
+                <h3 id="feelf"></h3>
+                <h3 id="wind"></h3>
+            </div>
+            <div id="five" class="item">
+                <h3 id="precipitation"></h3>
+                <h3 id="visibility"></h3>
+            </div>
+
+        </div>
+    
+    <script>
+
+        function getWeatherData() {
+
+            let cityName = document.querySelector("#cityName").value
+            axios.get(`https://api.weatherapi.com/v1/current.json?key=f8e70fba7c3441e384c24252220108&q=${cityName}&aqi=no
+`)
+                .then(function (response) {
+
+                    let getWeatherData = response.data;
+
+                    console.log(getWeatherData);
+                    let icon = getWeatherData.current.condition.icon;
+                    icon.replace("/file// ");
+                    document.querySelector("#icon").src = icon;
+                    document.querySelector("#temp").innerHTML = getWeatherData.current.temp_c + "C";
+                    document.querySelector("#city").innerHTML = getWeatherData.location.name;
+                    document.querySelector("#condition").innerHTML = getWeatherData.current.condition.text;
+                    document.querySelector("#feelc").innerHTML = "Feels like: " + getWeatherData.current.feelslike_c + "C";
+                    document.querySelector("#humidity").innerHTML = "Humidity: " + getWeatherData.current.humidity +"%";
+                    document.querySelector("#feelf").innerHTML = "Feels like: " + getWeatherData.current.feelslike_f + "f";
+                    document.querySelector("#wind").innerHTML = "Wind: " + getWeatherData.current.wind_kph + " kph";
+                    document.querySelector("#precipitation").innerHTML = "Precipitation: " + getWeatherData.current.precip_in +"%";
+                    document.querySelector("#visibility").innerHTML = "Visibility: " + getWeatherData.current.vis_km + "km";
+
+
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+
+        }
+ 
+    </script>
+
+</body>
+
+</html>
