@@ -13,6 +13,7 @@
 <body>
 
         <div class="container">
+<h1>Weather App</h1>
             <form onsubmit="getWeatherData(); return false;">
                 <input type="text" required id="cityName" placeholder="Enter your city name">
                 <button type="submit">Search</button>
@@ -22,11 +23,11 @@
 
             <div id="one" class="item">
                 <img id="icon" alt="">
-                <h3 id="temp"></h3>
+                <h2 id="temp"></h2>
             </div>
             <div id="two" class="item">
                 <h2 id="city"></h2>
-                <h3 id="condition"></h3>
+                <h2 id="condition"></h2>
             </div>
             <div id="three" class="item">
                 <h3 id="feelc"></h3>
@@ -58,7 +59,7 @@
                     let icon = getWeatherData.current.condition.icon;
                     icon.replace("/file// ");
                     document.querySelector("#icon").src = icon;
-                    document.querySelector("#temp").innerHTML = getWeatherData.current.temp_c + "C";
+                    document.querySelector("#temp").innerHTML = getWeatherData.current.temp_c +"\u00B0" +"C";
                     document.querySelector("#city").innerHTML = getWeatherData.location.name;
                     document.querySelector("#condition").innerHTML = getWeatherData.current.condition.text;
                     document.querySelector("#feelc").innerHTML = "Feels like: " + getWeatherData.current.feelslike_c + "C";
